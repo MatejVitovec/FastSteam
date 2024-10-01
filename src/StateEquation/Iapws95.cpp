@@ -7,6 +7,11 @@
 
 Iapws95::Iapws95() : Helmholtz()
 {
+    critT = 647.096;
+    critRho = 322.0;
+    specGasConst = 461.51805;
+    critP = 22064000.0;
+
     loadCoeffs("Thermo/StateEquations/iapws95Coeffs/");
 }
 

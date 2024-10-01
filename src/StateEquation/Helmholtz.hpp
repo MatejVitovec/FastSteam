@@ -40,10 +40,10 @@ class Helmholtz
         std::pair<double, double> RhoTFromSP(double s, double p, double guessRho, double guessT) const;
 
     protected:
-        double critT = 647.096;
-        double critRho = 322.0;
-        double specGasConst = 461.51805;
-        double critP = 22064000.0;
+        double critT;
+        double critRho;
+        double specGasConst;
+        double critP;
 
         std::array<double, 6> satPCoeffs = {-7.85951783, 1.84408259, -11.7866497, 22.6807411, -15.9618719, -1.80122502};
         std::array<double, 6> satLiqRhoCoeffs = {1.99274064, 1.09965342, -0.510839303, -1.75493479, -45.5170352, -674694.450};
