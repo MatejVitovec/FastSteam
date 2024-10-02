@@ -67,16 +67,19 @@ class HrubyEquation
         double etapp(double delta, double psi) const;
         double etadp(double delta, double psi) const;
 
+        double compressFactorFunc(double delta, double psi) const;
+        double WFunc(double delta, double psi) const;
+
         double pFunc(double delta, double psi) const;
-        double eFunc(double delta, double psi) const;
-        double sFunc(double delta, double psi) const;
+        double TFunc(double delta, double psi) const;
+        double hFunc(double delta, double psi) const;
+
 
         double pDDeltaFunc(double delta, double psi) const;
-        double sDDeltaFunc(double delta, double psi) const;
+        double TDDeltaFunc(double delta, double psi) const;
 
         double pDPsiFunc(double delta, double psi) const;
-        double eDPsiFunc(double delta, double psi) const;
-        double sDPsiFunc(double delta, double psi) const;
+        double TDPsiFunc(double delta, double psi) const;
 
 };
 

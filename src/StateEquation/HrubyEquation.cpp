@@ -2,6 +2,41 @@
 
 #include "HrubyEquation.hpp"
 
+double HrubyEquation::p(double rho, double e) const
+{
+    return pFunc(calcDelta(rho), calcPsi(e));
+}
+
+double HrubyEquation::T(double rho, double e) const
+{
+    return TFunc(calcDelta(rho), calcPsi(e));
+}
+
+double HrubyEquation::s(double rho, double e) const
+{
+
+}
+
+double HrubyEquation::h(double rho, double e) const
+{
+
+}
+
+double HrubyEquation::a2(double rho, double e) const
+{
+    double delta = calcDelta(rho);
+    double psi = calcPsi(e);
+    double Z = compressFactorFunc(delta, psi);
+    double etapVal = etap(delta, psi);
+
+    return specGasConst*critT*(-(2.0*delta*Z*etadp(delta, psi))/(std::pow(etapp(delta, psi), 2)) - (Z*Z*etapp(delta, psi))/(std::pow(etapVal, 3)) + WFunc(delta, psi)/etapVal);
+}
+
+double HrubyEquation::a(double rho, double e) const
+{
+    std::sqrt(a2(rho, e));
+}
+
 
 double HrubyEquation::eta0(double delta, double psi) const
 {
@@ -93,4 +128,24 @@ double HrubyEquation::etapp(double delta, double psi) const
 double HrubyEquation::etadp(double delta, double psi) const
 {
     return std::pow(calcKsi(psi), 2)*etardk(delta, psi);
+}
+
+double HrubyEquation::compressFactorFunc(double delta, double psi) const
+{
+    return 1.0 - delta*etard(delta, psi);
+}
+
+double HrubyEquation::WFunc(double delta, double psi) const
+{
+    return 1.0 - 2.0*delta*etard(delta, psi) - delta*delta*etardd(delta, psi);
+}
+
+double HrubyEquation::pFunc(double delta, double psi) const
+{
+    return compressFactorFunc(delta, psi)*TFunc(delta, psi)*specGasConst*delta*critRho;
+}
+
+double HrubyEquation::TFunc(double delta, double psi) const
+{
+    return critT/etap(delta, psi);
 }
