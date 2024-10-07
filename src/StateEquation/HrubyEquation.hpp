@@ -12,8 +12,6 @@ class HrubyEquation
 
         HrubyEquation();
 
-        virtual ~HrubyEquation() {}
-
         double p(double rho, double e) const;
         double T(double rho, double e) const;
         double s(double rho, double e) const;
@@ -21,9 +19,18 @@ class HrubyEquation
         double a2(double rho, double e) const;
         double a(double rho, double e) const;
 
-        double eFromRhoP(double rho, double p, double guessE);
+        double eFromRhoP(double rho, double p, double guessE) const;
+        double eFromRhoT(double rho, double T, double guessE) const;
+        double eFromRhoS(double rho, double s, double guessE) const;
+        double eFromRhoH(double rho, double h, double guessE) const;
 
-        std::pair<double, double> RhoEFromSP(double s, double p, double guessRho, double guessE) const;
+        double rhoFromEP(double e, double p, double guessRho) const;
+        double rhoFromET(double e, double T, double guessRho) const;
+        double rhoFromES(double e, double s, double guessRho) const;
+        double rhoFromEH(double e, double h, double guessRho) const;
+
+        std::pair<double, double> RhoTFromSP(double s, double p, double guessRho, double guessE) const;
+
 
     private:
         double critT;
@@ -72,14 +79,19 @@ class HrubyEquation
 
         double pFunc(double delta, double psi) const;
         double TFunc(double delta, double psi) const;
+        double sFunc(double delta, double psi) const;
         double hFunc(double delta, double psi) const;
 
 
         double pDDeltaFunc(double delta, double psi) const;
         double TDDeltaFunc(double delta, double psi) const;
+        double sDDeltaFunc(double delta, double psi) const;
+        double hDDeltaFunc(double delta, double psi) const;
 
         double pDPsiFunc(double delta, double psi) const;
         double TDPsiFunc(double delta, double psi) const;
+        double sDPsiFunc(double delta, double psi) const;
+        double hDPsiFunc(double delta, double psi) const;
 
 };
 
