@@ -72,7 +72,7 @@ double Helmholtz::a(double rho, double T) const
     return std::sqrt(a2(rho, T));
 }
 
-double Helmholtz::vaporPressure(double T) const
+/*double Helmholtz::vaporPressure(double T) const
 {
     double theta = calcTheta(T);
     return critP*std::exp(calcTau(T)*(satPCoeffs[0]*theta
@@ -103,7 +103,7 @@ double Helmholtz::saturatedLiquidDensity(double T) const
                           + satVapRhoCoeffs[3]*std::pow(theta, 18.0/6.0)
                           + satVapRhoCoeffs[4]*std::pow(theta, 37.0/6.0)
                           + satVapRhoCoeffs[5]*std::pow(theta, 71.0/6.0));
-}
+}*/
 
 double Helmholtz::tFromRhoP(double rho, double p, double guessT) const
 {

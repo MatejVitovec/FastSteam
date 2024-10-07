@@ -8,6 +8,10 @@ HrubyEquation::HrubyEquation()
     critT = 647.096;
     critRho = 322.0;
     specGasConst = 461.51805;
+
+    beta = {3.0136, 0.21825};
+    ceoffC = {7.7419423096, 69.178357300, -474.69167775, 6104.0685828, -71467.778757, 794338.56008, -6808358.4642, 40191412.675, -140094025.97, 218677291.14};
+    coeffB = {0.5125, -0.00999, 0.000000322};
 }
 
 double HrubyEquation::p(double rho, double e) const

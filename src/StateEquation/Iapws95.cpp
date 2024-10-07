@@ -12,7 +12,7 @@ Iapws95::Iapws95() : Helmholtz()
     specGasConst = 461.51805;
     critP = 22064000.0;
 
-    loadCoeffs("Thermo/StateEquations/iapws95Coeffs/");
+    loadCoeffs("StateEquation/iapws95Coeffs/");
 }
 
 std::vector<double> Iapws95::loadCoeffFile(std::string name, std::string dirName, int size) const

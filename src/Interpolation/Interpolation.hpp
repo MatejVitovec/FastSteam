@@ -25,9 +25,14 @@ class Interpolation
 
         virtual double calcDiffX(double xx, double yy) const = 0;
         virtual double calcDiffY(double xx, double yy) const = 0;
+        virtual double calcDiff2X(double xx, double yy) const = 0;
+        virtual double calcDiff2Y(double xx, double yy) const = 0;
+        virtual double calcDiffXY(double xx, double yy) const = 0;
 
         virtual double calcInverseX(double zz, double yy, double guessXX) const = 0;
         virtual double calcInverseY(double xx, double zz, double guessYY) const = 0;
+
+        virtual double calcYForDiffXbyDiffYEqualConst(double xx, double guessYY, double K) const = 0;
 
     protected:
         std::vector<int> gridSizeX;

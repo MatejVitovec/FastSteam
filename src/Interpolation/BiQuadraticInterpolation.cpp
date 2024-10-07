@@ -512,6 +512,39 @@ double BiQuadraticInterpolation::calcDiffY(double xx, double yy) const
     return coeff[0][1] + v*(coeff[1][1] + v*coeff[2][1]) + w*2.0*(coeff[0][2] + v*(coeff[1][2] + v*coeff[2][2]));
 }
 
+double BiQuadraticInterpolation::calcDiff2X(double xx, double yy) const
+{
+    std::pair<int, int> position = fastFindPosition(xx, yy);
+    double v = xx - x[position.first];
+    double w = yy - y[position.second];
+
+    const Mat3x3& coeff = coeffs[position.second*n + position.first];
+
+    return 2.0*(coeff[2][0] + w*(coeff[2][1] + w*coeff[2][2]));
+}
+
+double BiQuadraticInterpolation::calcDiff2Y(double xx, double yy) const
+{
+    std::pair<int, int> position = fastFindPosition(xx, yy);
+    double v = xx - x[position.first];
+    double w = yy - y[position.second];
+
+    const Mat3x3& coeff = coeffs[position.second*n + position.first];
+
+    return 2.0*(coeff[0][2] + v*(coeff[1][2] + v*coeff[2][2]));
+}
+
+double BiQuadraticInterpolation::calcDiffXY(double xx, double yy) const
+{
+    std::pair<int, int> position = fastFindPosition(xx, yy);
+    double v = xx - x[position.first];
+    double w = yy - y[position.second];
+
+    const Mat3x3& coeff = coeffs[position.second*n + position.first];
+
+    return coeff[1][1] + 2.0*(w*coeff[1][2] + v*(coeff[2][1] + 2.0*w*coeff[2][2]));
+}
+
 double BiQuadraticInterpolation::calcInverseX(double zz, double yy, double guessXX) const
 {
     std::pair<int, int> position = findPosition(guessXX, yy);
@@ -538,6 +571,21 @@ double BiQuadraticInterpolation::calcInverseY(double xx, double zz, double guess
     double A = coeff[2][0] + dx*(coeff[2][1] + coeff[2][2]*dx);
     double B = coeff[1][0] + dx*(coeff[1][1] + coeff[1][2]*dx);
     double C = coeff[0][0] + dx*(coeff[0][1] + coeff[0][2]*dx) - zz;
+    
+    return (-B + sqrt(B*B - 4.0*A*C))/(2.0*A) + y[position.second];
+}
+
+double BiQuadraticInterpolation::calcYForDiffXbyDiffYEqualConst(double xx, double guessYY, double K) const
+{
+    std::pair<int, int> position = findPosition(xx, guessYY);
+
+    Mat3x3 coeff = coeffs[position.second*n + position.first];
+
+    double v = xx - x[position.first];
+
+    double A = coeff[1][2] + 2.0*v*coeff[2][2];
+    double B = coeff[1][1] - 2.0*(-v*coeff[2][1] + K*(coeff[0][2] + v*(coeff[1][2] + v*coeff[2][2])));
+    double C = coeff[1][0] + 2.0*v*coeff[2][0] - K*(coeff[0][1] + v*coeff[1][1] + v*v*coeff[2][1]);
     
     return (-B + sqrt(B*B - 4.0*A*C))/(2.0*A) + y[position.second];
 }

@@ -23,9 +23,9 @@ class Helmholtz
         double a2(double rho, double T) const;
         double a(double rho, double T) const;
 
-        double vaporPressure(double T) const;
-        double saturatedVaporDensity(double T) const;
-        double saturatedLiquidDensity(double T) const;
+        //double vaporPressure(double T) const;
+        //double saturatedVaporDensity(double T) const;
+        //double saturatedLiquidDensity(double T) const;
 
         double tFromRhoP(double rho, double p, double guessT) const;
         double tFromRhoE(double rho, double e, double guessT) const;
