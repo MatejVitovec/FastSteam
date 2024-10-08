@@ -50,12 +50,11 @@ int main(int argc, char** argv)
 
     std::vector<std::vector<double>> i95Results = std::vector<std::vector<double>>(eRange.size());
     std::vector<std::vector<double>> hrubyresults = std::vector<std::vector<double>>(eRange.size());
-
-
+	
+    auto stop1 = std::chrono::high_resolution_clock::now();
     for (size_t j = 0; j < eRange.size(); j++)
     {
         i95Results[j] = std::vector<double>(rhoRange.size());
-        hrubyresults[j] = std::vector<double>(rhoRange.size());
 
         for (size_t i = 0; i < rhoRange.size(); i++)
         {
@@ -63,11 +62,28 @@ int main(int argc, char** argv)
             double e = eRange[j];
 
             i95Results[j][i] = i95.tFromRhoE(rho, e, auxPressure(rho, e)/(rho*461.51805));
-            hrubyresults[j][i] = hruby.T(rho, e);
         }
     }
 
+    auto stop2 = std::chrono::high_resolution_clock::now();
     
+    for (size_t j = 0; j < eRange.size(); j++)
+    {
+        hrubyresults[j] = std::vector<double>(rhoRange.size());
+
+        for (size_t i = 0; i < rhoRange.size(); i++)
+        {
+            double rho = rhoRange[i];
+            double e = eRange[j];
+
+            hrubyresults[j][i] = hruby.T(rho, e);
+        }
+    }
+    auto stop3 = std::chrono::high_resolution_clock::now();
+
+
+    std::cout << "IAPWS-95: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop2 - stop1).count() << " ms\n";
+    std::cout << "Hrubý eqution: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop3 - stop2).count() << " ms\n";
     
 
     
